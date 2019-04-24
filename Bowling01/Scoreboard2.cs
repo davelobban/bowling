@@ -44,7 +44,7 @@ namespace Bowling01
                 case Scoreboard.PinsFloored.Spare:
                     return new SpareThrowScore();
                 case Scoreboard.PinsFloored.Strike:
-                    throw new NotImplementedException();
+                    return new StrikeThrowScore();
                 default:
                     return new SimpleThrowScore();
             }

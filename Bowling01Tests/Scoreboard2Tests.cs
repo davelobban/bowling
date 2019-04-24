@@ -155,7 +155,7 @@ namespace Tests
             var actual = new SpareThrowScore().GetScoreForThrow(throws, index);
             Assert.AreEqual(expected, actual);
         }
-        /*
+        
         [Test]
         public void GetScore_1StrikeBeforeTenth_ScoreIsComputedCorrectly()
         {
@@ -197,7 +197,7 @@ namespace Tests
             var expectedScores = new List<int> { 17 + 8, 7, 8, 0, 10 + 10 + 4, 10+4, 4, 0, 0, 0 };
             AssertActualIsSumOf(throws, expectedScores);
         }
-
+        
         [Test]
         public void GetScore_2StrikesOneSpareBeforeTenthStrikeOnTenthFollowedByEightAndNine_ScoreIsComputedCorrectly()
         {
@@ -269,7 +269,7 @@ namespace Tests
             };
             var expectedScores = new List<int> { 17 + 8, 7, 8, 0, 10 + 10 + 4, 10 + 4, 4, 0, 0, 10 };
             AssertActualIsSumOf(throws, expectedScores);
-        }*/
+        }
     }
 
 }
