@@ -7,11 +7,27 @@ namespace Bowling01
 {
     public class Scoreboard
     {
+        public enum PinsFloored
+        {
+            Zero =0,
+            One = 1,
+            Two = 2,
+            Three= 3,
+            Four= 4,
+            Five= 5,
+            Six=6,
+            Seven=7,
+            Eight=8,
+            Nine=9,
+            Spare=-1,
+            Strike=-2
+        }
+
         public const int SpareThrown = -1;
         private const int Ten = 10;
-        private List<int> _throws;
+        private List<PinsFloored> _throws;
 
-        public Scoreboard(List<int> throws)
+        public Scoreboard(List<PinsFloored> throws)
         {
             _throws = throws;
         }
@@ -24,22 +40,27 @@ namespace Bowling01
                 var rewardedScores = new List<int>();
                 _throws.ForEach(t =>
                 {
+                    int? throwTotal = null;
                     if (lastWasSpare)
                     {
-                        if (t != SpareThrown)
+                        if (t != PinsFloored.Spare && t != PinsFloored.Strike)
                         {
                             lastWasSpare = false;
                         }
 
-                        rewardedScores.Add((t == SpareThrown ? Ten : t) + 10);
+                        throwTotal = (t == PinsFloored.Spare ? Ten : (int)t) + 10;
                     }
 
-                    if (t == SpareThrown)
+                    if (t == PinsFloored.Spare)
                     {
                         lastWasSpare = true;
                     }
 
-                    rewardedScores.Add((t == SpareThrown ? Ten : t));
+                    if (throwTotal.HasValue == false)
+                    {
+                        throwTotal = (t == PinsFloored.Spare ? Ten : (int)t);
+                    }
+                    rewardedScores.Add((int) throwTotal);
                 });
                 return rewardedScores.Sum();
             }
