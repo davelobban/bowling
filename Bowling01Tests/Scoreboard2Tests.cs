@@ -117,6 +117,46 @@ namespace Tests
         }
 
         [Test]
+        public void GetScoreForThrow_1Spare_ScoreIsComputedCorrectly()
+        {
+            var throws = new List<Scoreboard.PinsFloored> {
+                Scoreboard.PinsFloored.Spare, Scoreboard.PinsFloored.Seven,
+                Scoreboard.PinsFloored.Eight, Scoreboard.PinsFloored.Zero
+            };
+
+            var expected = 17;
+            var actual = new Scoreboard2(null).GetScoreForThrow(throws, 0);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(0,20)]
+        [TestCase(1, 18)]
+        public void GetScoreForThrow_2ConsecutiveSpares_ScoreIsComputedCorrectlyAtIndex(int index, int expected)
+        {
+            var throws = new List<Scoreboard.PinsFloored> {
+                Scoreboard.PinsFloored.Spare, Scoreboard.PinsFloored.Spare,
+                Scoreboard.PinsFloored.Eight, Scoreboard.PinsFloored.Zero
+            };
+
+            var actual = new Scoreboard2(null).GetScoreForThrow(throws, index);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(0, 20)]
+        [TestCase(1, 20)]
+        [TestCase(2, 10)]
+        public void GetScoreForThrow_3ConsecutiveSpares_ScoreIsComputedCorrectlyAtIndex(int index, int expected)
+        {
+            var throws = new List<Scoreboard.PinsFloored> {
+                Scoreboard.PinsFloored.Spare, Scoreboard.PinsFloored.Spare,
+                Scoreboard.PinsFloored.Spare, Scoreboard.PinsFloored.Zero
+            };
+
+            var actual = new Scoreboard2(null).GetScoreForThrow(throws, index);
+            Assert.AreEqual(expected, actual);
+        }
+        /*
+        [Test]
         public void GetScore_1StrikeBeforeTenth_ScoreIsComputedCorrectly()
         {
             var throws = new List<Scoreboard.PinsFloored> {
@@ -229,7 +269,7 @@ namespace Tests
             };
             var expectedScores = new List<int> { 17 + 8, 7, 8, 0, 10 + 10 + 4, 10 + 4, 4, 0, 0, 10 };
             AssertActualIsSumOf(throws, expectedScores);
-        }
+        }*/
     }
 
 }
