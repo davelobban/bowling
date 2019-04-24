@@ -23,10 +23,10 @@ namespace Bowling01
             Strike=-2
         }
 
-        public const int SpareThrown = -1;
         private const int Ten = 10;
         private List<PinsFloored> _throws;
-
+        private PinsFloored _lastThrow = PinsFloored.Zero;
+        private PinsFloored _secondToLastThrow = PinsFloored.Zero;
         public Scoreboard(List<PinsFloored> throws)
         {
             _throws = throws;
@@ -36,32 +36,40 @@ namespace Bowling01
         {
             get
             {
-                var lastWasSpare = false;
+                
                 var rewardedScores = new List<int>();
                 _throws.ForEach(t =>
                 {
-                    var thisThrowScore = t == PinsFloored.Spare ? Ten : (int)t;
+                    var thisThrowScore = (t == PinsFloored.Strike || t == PinsFloored.Spare) ? Ten : (int)t;
+                    var lastWasSpare = _lastThrow == PinsFloored.Spare;
+                    var lastWasStrike = _lastThrow == PinsFloored.Strike;
+                    var secondToLastWasStrike = _secondToLastThrow == PinsFloored.Strike;
 
-                    if (lastWasSpare)
+                    if (secondToLastWasStrike && rewardedScores.Count>=2)
                     {
-                        if (t != PinsFloored.Spare && t != PinsFloored.Strike)
-                        {
-                            lastWasSpare = false;
-                        }
-                        
+                        rewardedScores[rewardedScores.Count - 2] += thisThrowScore;
+                    }
+
+                    if (lastWasStrike)
+                    {
                         rewardedScores[rewardedScores.Count - 1] += thisThrowScore;
                     }
 
-                    if (t == PinsFloored.Spare)
+                    if (lastWasSpare)
                     {
-                        lastWasSpare = true;
+                        rewardedScores[rewardedScores.Count - 1] += thisThrowScore;
                     }
 
                     if (rewardedScores.Count < 10)
                     {
                         rewardedScores.Add(thisThrowScore);
                     }
+
+
+                    _secondToLastThrow = _lastThrow;
+                    _lastThrow = t;
                 });
+
                 return rewardedScores.Sum();
             }
         }
