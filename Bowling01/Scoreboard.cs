@@ -40,36 +40,26 @@ namespace Bowling01
                 var rewardedScores = new List<int>();
                 _throws.ForEach(t =>
                 {
-                    int? throwTotal = null;
+                    var thisThrowScore = t == PinsFloored.Spare ? Ten : (int)t;
+
                     if (lastWasSpare)
                     {
                         if (t != PinsFloored.Spare && t != PinsFloored.Strike)
                         {
                             lastWasSpare = false;
                         }
-
                         
-                        var thisThrowScore = t == PinsFloored.Spare ? Ten : (int)t;
                         rewardedScores[rewardedScores.Count - 1] += thisThrowScore;
-
-                        throwTotal = thisThrowScore;
                     }
 
                     if (t == PinsFloored.Spare)
                     {
                         lastWasSpare = true;
                     }
-
-                    if (throwTotal.HasValue == false)
-                    {
-                        throwTotal = (t == PinsFloored.Spare ? Ten : (int)t);
-                    }
-                    rewardedScores.Add((int) throwTotal);
+                    rewardedScores.Add(thisThrowScore);
                 });
                 return rewardedScores.Sum();
             }
         }
-
-        //_throws.Sum(t => t==SpareThrown?Ten:t);
     }
 }
