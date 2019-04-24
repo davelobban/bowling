@@ -130,6 +130,20 @@ namespace Tests
             AssertActualIsSumOf(throws, expectedScores);
         }
 
+        [Test]
+        public void GetScore_2StrikesBeforeTenth_ScoreIsComputedCorrectlyAt43()
+        {
+            var throws = new List<Scoreboard.PinsFloored> {
+                Scoreboard.PinsFloored.Strike, Scoreboard.PinsFloored.Seven,
+                Scoreboard.PinsFloored.Eight, Scoreboard.PinsFloored.Zero,
+                Scoreboard.PinsFloored.Strike,Scoreboard.PinsFloored.Five,
+                Scoreboard.PinsFloored.Four,Scoreboard.PinsFloored.Zero,
+                Scoreboard.PinsFloored.Zero,Scoreboard.PinsFloored.Zero
+            };
+            var expectedScores = new List<int> { 17 + 8, 7, 8, 0, 10+5+4, 5, 4, 0, 0, 0 };
+            AssertActualIsSumOf(throws, expectedScores);
+        }
+
     }
 
 }
