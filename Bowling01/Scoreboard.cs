@@ -41,8 +41,6 @@ namespace Bowling01
                 _throws.ForEach(t =>
                 {
                     var thisThrowScore = (t == PinsFloored.Strike || t == PinsFloored.Spare) ? Ten : (int)t;
-                    var lastWasSpare = _lastThrow == PinsFloored.Spare;
-                    var lastWasStrike = _lastThrow == PinsFloored.Strike;
                     var secondToLastWasStrike = _secondToLastThrow == PinsFloored.Strike;
 
                     if (secondToLastWasStrike && rewardedScores.Count>=2)
@@ -50,12 +48,7 @@ namespace Bowling01
                         rewardedScores[rewardedScores.Count - 2] += thisThrowScore;
                     }
 
-                    if (lastWasStrike)
-                    {
-                        rewardedScores[rewardedScores.Count - 1] += thisThrowScore;
-                    }
-
-                    if (lastWasSpare)
+                    if (LastWasStrike || LastWasSpare)
                     {
                         rewardedScores[rewardedScores.Count - 1] += thisThrowScore;
                     }
@@ -73,5 +66,9 @@ namespace Bowling01
                 return rewardedScores.Sum();
             }
         }
+
+        private bool LastWasStrike => _lastThrow == PinsFloored.Strike;
+
+        private bool LastWasSpare => _lastThrow == PinsFloored.Spare;
     }
 }
