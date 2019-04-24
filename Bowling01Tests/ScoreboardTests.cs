@@ -28,7 +28,7 @@ namespace Tests
 
         private static void AssertActualIsSumOf(List<Scoreboard.PinsFloored> throws, List<int> expectedScores)
         {
-            var expected = (expectedScores ?? throws).Sum(t => t);
+            var expected = expectedScores.Sum(t => t);
             var actual = new Scoreboard(throws).Score;
             Assert.AreEqual(expected, actual);
         }
@@ -61,14 +61,20 @@ namespace Tests
         }
 
 
-        //[Test]
-        //public void GetScore_1SpareBeforeTenth_ScoreIsSumOfTenRollsPlusTenAt35()
-        //{
-        //    //-1: spare
-        //    var throws = new List<int> { Scoreboard.SpareThrown, 7, 8, 0, 0, 0, 0, 0, 0, 0 };
-        //    var expectedScores = new List<int> { 17, 7, 8, 0, 0, 0, 0, 0, 0, 0 };
-        //    AssertActualIsSumOf(throws, expectedScores);
-        //}
+        [Test]
+        public void GetScore_1SpareBeforeTenth_ScoreIsSumOfTenRollsPlusTenAt35()
+        {
+            //-1: spare
+            var throws = new List<Scoreboard.PinsFloored> {
+                Scoreboard.PinsFloored.Spare, Scoreboard.PinsFloored.Seven,
+                Scoreboard.PinsFloored.Eight, Scoreboard.PinsFloored.Zero,
+                Scoreboard.PinsFloored.Zero,Scoreboard.PinsFloored.Zero,
+                Scoreboard.PinsFloored.Zero,Scoreboard.PinsFloored.Zero,
+                Scoreboard.PinsFloored.Zero,Scoreboard.PinsFloored.Zero
+            };
+            var expectedScores = new List<int> { 17, 7, 8, 0, 0, 0, 0, 0, 0, 0 };
+            AssertActualIsSumOf(throws, expectedScores);
+        }
         //[Test]
         //public void GetScore_1SpareBeforeTenth_ScoreIsSumOfTenRollsPlusTenAt40()
         //{

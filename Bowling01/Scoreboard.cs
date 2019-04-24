@@ -48,7 +48,11 @@ namespace Bowling01
                             lastWasSpare = false;
                         }
 
-                        throwTotal = (t == PinsFloored.Spare ? Ten : (int)t) + 10;
+                        
+                        var thisThrowScore = t == PinsFloored.Spare ? Ten : (int)t;
+                        rewardedScores[rewardedScores.Count - 1] += thisThrowScore;
+
+                        throwTotal = thisThrowScore;
                     }
 
                     if (t == PinsFloored.Spare)
