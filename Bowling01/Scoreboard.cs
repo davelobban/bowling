@@ -9,18 +9,18 @@ namespace Bowling01
     {
         public enum PinsFloored
         {
-            Zero =0,
+            Zero = 0,
             One = 1,
             Two = 2,
-            Three= 3,
-            Four= 4,
-            Five= 5,
-            Six=6,
-            Seven=7,
-            Eight=8,
-            Nine=9,
-            Spare=-1,
-            Strike=-2
+            Three = 3,
+            Four = 4,
+            Five = 5,
+            Six = 6,
+            Seven = 7,
+            Eight = 8,
+            Nine = 9,
+            Spare = -1,
+            Strike = -2
         }
 
         private const int Ten = 10;
@@ -36,19 +36,26 @@ namespace Bowling01
         {
             get
             {
-                
+
                 var rewardedScores = new List<int>();
+                var processingFinalThrowCount = 0;
                 _throws.ForEach(t =>
                 {
                     var thisThrowScore = (t == PinsFloored.Strike || t == PinsFloored.Spare) ? Ten : (int)t;
                     var secondToLastWasStrike = _secondToLastThrow == PinsFloored.Strike;
-
-                    if (secondToLastWasStrike && rewardedScores.Count>=2)
+                    processingFinalThrowCount += rewardedScores.Count == 10 ? 1 : 0;
+                    if (secondToLastWasStrike && rewardedScores.Count >= 2)
                     {
-                        rewardedScores[rewardedScores.Count - 2] += thisThrowScore;
+                        if (processingFinalThrowCount < 2)
+                        {
+                            rewardedScores[rewardedScores.Count - 2] += thisThrowScore;
+                        }
+                        else
+                        {
+                            rewardedScores[rewardedScores.Count - 1] += thisThrowScore;
+                        }
                     }
-
-                    if (LastWasStrike || LastWasSpare)
+                    if (processingFinalThrowCount < 2 && (LastWasStrike || LastWasSpare))
                     {
                         rewardedScores[rewardedScores.Count - 1] += thisThrowScore;
                     }

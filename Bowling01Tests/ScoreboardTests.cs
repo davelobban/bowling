@@ -157,6 +157,79 @@ namespace Tests
             var expectedScores = new List<int> { 17 + 8, 7, 8, 0, 10 + 10 + 4, 10+4, 4, 0, 0, 0 };
             AssertActualIsSumOf(throws, expectedScores);
         }
+
+        [Test]
+        public void GetScore_2StrikesOneSpareBeforeTenthStrikeOnTenthFollowedByEightAndNine_ScoreIsComputedCorrectly()
+        {
+            var throws = new List<Scoreboard.PinsFloored> {
+                Scoreboard.PinsFloored.Strike, Scoreboard.PinsFloored.Seven,
+                Scoreboard.PinsFloored.Eight, Scoreboard.PinsFloored.Zero,
+                Scoreboard.PinsFloored.Strike,Scoreboard.PinsFloored.Spare,
+                Scoreboard.PinsFloored.Four,Scoreboard.PinsFloored.Zero,
+                Scoreboard.PinsFloored.Zero,Scoreboard.PinsFloored.Strike,
+                Scoreboard.PinsFloored.Eight, Scoreboard.PinsFloored.Nine
+            };
+            var expectedScores = new List<int> { 17 + 8, 7, 8, 0, 10 + 10 + 4, 10 + 4, 4, 0, 0, 10 + 8 + 9 };
+            AssertActualIsSumOf(throws, expectedScores);
+        }
+
+        [Test]
+        public void GetScore_2StrikesOneSpareBeforeTenthStrikeOnTenthFollowedByStrikeAndNine_ScoreIsComputedCorrectly()
+        {
+            var throws = new List<Scoreboard.PinsFloored> {
+                Scoreboard.PinsFloored.Strike, Scoreboard.PinsFloored.Seven,
+                Scoreboard.PinsFloored.Eight, Scoreboard.PinsFloored.Zero,
+                Scoreboard.PinsFloored.Strike,Scoreboard.PinsFloored.Spare,
+                Scoreboard.PinsFloored.Four,Scoreboard.PinsFloored.Zero,
+                Scoreboard.PinsFloored.Zero,Scoreboard.PinsFloored.Strike,
+                Scoreboard.PinsFloored.Strike, Scoreboard.PinsFloored.Nine
+            };
+            var expectedScores = new List<int> { 17 + 8, 7, 8, 0, 10 + 10 + 4, 10 + 4, 4, 0, 0, 10 + 10 + 9 };
+            AssertActualIsSumOf(throws, expectedScores);
+        }
+        [Test]
+        public void GetScore_2StrikesOneSpareBeforeTenthStrikeOnTenthFollowedByStrikeAndStrike_ScoreIsComputedCorrectly()
+        {
+            var throws = new List<Scoreboard.PinsFloored> {
+                Scoreboard.PinsFloored.Strike, Scoreboard.PinsFloored.Seven,
+                Scoreboard.PinsFloored.Eight, Scoreboard.PinsFloored.Zero,
+                Scoreboard.PinsFloored.Strike,Scoreboard.PinsFloored.Spare,
+                Scoreboard.PinsFloored.Four,Scoreboard.PinsFloored.Zero,
+                Scoreboard.PinsFloored.Zero,Scoreboard.PinsFloored.Strike,
+                Scoreboard.PinsFloored.Strike, Scoreboard.PinsFloored.Strike
+            };
+            var expectedScores = new List<int> { 17 + 8, 7, 8, 0, 10 + 10 + 4, 10 + 4, 4, 0, 0, 10 + 10 + 10 };
+            AssertActualIsSumOf(throws, expectedScores);
+        }
+
+        [Test]
+        public void GetScore_2StrikesOneSpareBeforeTenthStrikeOnTenthFollowedByStrikeAndSpare_ScoreIsComputedCorrectly()
+        {
+            var throws = new List<Scoreboard.PinsFloored> {
+                Scoreboard.PinsFloored.Strike, Scoreboard.PinsFloored.Seven,
+                Scoreboard.PinsFloored.Eight, Scoreboard.PinsFloored.Zero,
+                Scoreboard.PinsFloored.Strike,Scoreboard.PinsFloored.Spare,
+                Scoreboard.PinsFloored.Four,Scoreboard.PinsFloored.Zero,
+                Scoreboard.PinsFloored.Zero,Scoreboard.PinsFloored.Strike,
+                Scoreboard.PinsFloored.Strike, Scoreboard.PinsFloored.Spare
+            };
+            var expectedScores = new List<int> { 17 + 8, 7, 8, 0, 10 + 10 + 4, 10 + 4, 4, 0, 0, 10 + 10 + 10 };
+            AssertActualIsSumOf(throws, expectedScores);
+        }
+        [Test]
+        public void GetScore_2StrikesOneSpareBeforeTenthStrikeOnTenthFollowedByZeroAndZero_ScoreIsComputedCorrectly()
+        {
+            var throws = new List<Scoreboard.PinsFloored> {
+                Scoreboard.PinsFloored.Strike, Scoreboard.PinsFloored.Seven,
+                Scoreboard.PinsFloored.Eight, Scoreboard.PinsFloored.Zero,
+                Scoreboard.PinsFloored.Strike,Scoreboard.PinsFloored.Spare,
+                Scoreboard.PinsFloored.Four,Scoreboard.PinsFloored.Zero,
+                Scoreboard.PinsFloored.Zero,Scoreboard.PinsFloored.Strike,
+                Scoreboard.PinsFloored.Zero, Scoreboard.PinsFloored.Zero
+            };
+            var expectedScores = new List<int> { 17 + 8, 7, 8, 0, 10 + 10 + 4, 10 + 4, 4, 0, 0, 10 };
+            AssertActualIsSumOf(throws, expectedScores);
+        }
     }
 
 }
