@@ -125,7 +125,7 @@ namespace Tests
             };
 
             var expected = 17;
-            var actual = new Scoreboard2(null).GetScoreForThrow(throws, 0);
+            var actual = new SpareThrowScore().GetScoreForThrow(throws, 0);
             Assert.AreEqual(expected, actual);
         }
 
@@ -138,7 +138,7 @@ namespace Tests
                 Scoreboard.PinsFloored.Eight, Scoreboard.PinsFloored.Zero
             };
 
-            var actual = new Scoreboard2(null).GetScoreForThrow(throws, index);
+            var actual = new SpareThrowScore().GetScoreForThrow(throws, index);
             Assert.AreEqual(expected, actual);
         }
 
@@ -152,7 +152,7 @@ namespace Tests
                 Scoreboard.PinsFloored.Spare, Scoreboard.PinsFloored.Zero
             };
 
-            var actual = new Scoreboard2(null).GetScoreForThrow(throws, index);
+            var actual = new SpareThrowScore().GetScoreForThrow(throws, index);
             Assert.AreEqual(expected, actual);
         }
         /*
