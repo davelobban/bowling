@@ -89,7 +89,7 @@ namespace Tests
         }
 
         [Test]
-        public void GetScore_2SparesBeforeTenth_ScoreIsSumOfTenRollsPlusTenAt40()
+        public void GetScore_2SparesBeforeTenth_ScoreIsSumOfTenRollsPlusTenAt66()
         {
             var throws = new List<Scoreboard.PinsFloored> {
                 Scoreboard.PinsFloored.Spare, Scoreboard.PinsFloored.Seven,
@@ -99,6 +99,20 @@ namespace Tests
                 Scoreboard.PinsFloored.Spare,Scoreboard.PinsFloored.Eight
             };
             var expectedScores = new List<int> { 17, 7, 8, 0, 5, 0, 0, 0, 18, 8 };
+            AssertActualIsSumOf(throws, expectedScores);
+        }
+        [Test]
+        public void GetScore_2SparesBeforeTenthAndOnTenthGetASpareWithAnEight_ScoreIsComputedCorrectlyAt75()
+        {
+            var throws = new List<Scoreboard.PinsFloored> {
+                Scoreboard.PinsFloored.Spare, Scoreboard.PinsFloored.Seven,
+                Scoreboard.PinsFloored.Eight, Scoreboard.PinsFloored.Zero,
+                Scoreboard.PinsFloored.Five,Scoreboard.PinsFloored.Zero,
+                Scoreboard.PinsFloored.Zero,Scoreboard.PinsFloored.Zero,
+                Scoreboard.PinsFloored.Spare,Scoreboard.PinsFloored.Spare,
+                Scoreboard.PinsFloored.Eight
+            };
+            var expectedScores = new List<int> { 17, 7, 8, 0, 5, 0, 0, 0, 20, 18 };
             AssertActualIsSumOf(throws, expectedScores);
         }
 

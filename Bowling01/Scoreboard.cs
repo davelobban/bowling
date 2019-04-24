@@ -56,7 +56,11 @@ namespace Bowling01
                     {
                         lastWasSpare = true;
                     }
-                    rewardedScores.Add(thisThrowScore);
+
+                    if (rewardedScores.Count < 10)
+                    {
+                        rewardedScores.Add(thisThrowScore);
+                    }
                 });
                 return rewardedScores.Sum();
             }
