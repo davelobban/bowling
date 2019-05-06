@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Bowling01
 {
@@ -24,11 +22,6 @@ namespace Bowling01
                     var scorer = GetScorerFor(_throws[i]);
                     var value = scorer.GetScoreForThrow(_throws, i);
                     var scoreForThrow = value;
-
-                    //if (currentThrow == Scoreboard.PinsFloored.Spare)
-                    //{
-                    //    scoreForThrow += GetScoreForThrow(_throws[i + 1]);
-                    //}
                     scoredThrows.Add(scoreForThrow);
                 }
 
